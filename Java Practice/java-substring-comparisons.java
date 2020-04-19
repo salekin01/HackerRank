@@ -17,7 +17,7 @@ public class Solution {
         for(int i=0; i+k<=s.length(); i++){
             temp = 0;
             for(int j=0; j<k ; j++){
-                startingPoint = i;
+            	startingPoint = i;
                 temp += (int)s.charAt(startingPoint++);
             }
             if(smallestVal == 0 && largestVal == 0){  //only for first time
@@ -26,13 +26,43 @@ public class Solution {
                 smallest = s.substring(i,i+k);   
                 largest = smallest;
             }
-            if(temp < smallestVal){
+            else if(temp < smallestVal){
                 smallestVal = temp;
                 smallest = s.substring(i,i+k);   
             }
-            if(temp > largestVal){
+            else if(temp > largestVal){
                 largestVal = temp;
                 largest = s.substring(i,i+k); 
+            }
+            else if(temp == smallestVal){
+            	String tempStr = s.substring(i,i+k);
+            	int tempSum = 0;
+            	int smallestSum = 0;
+            	for(int m=0; m<smallest.length(); m++) {
+            		tempSum += (int)tempStr.charAt(m);
+            		smallestSum += (int)smallest.charAt(m);
+            		if(smallestSum < tempSum) {
+            			break;
+            		}
+            		else if(smallestSum > tempSum) {
+            			smallest = tempStr; 
+            		}
+            	}   
+            }
+            else if(temp == largestVal){
+            	String tempStr = s.substring(i,i+k);
+            	int tempSum = 0;
+            	int largestSum = 0;
+            	for(int m=0; m<largest.length(); m++) {
+            		tempSum += (int)tempStr.charAt(m);
+            		largestSum += (int)largest.charAt(m);
+            		if(largestSum > tempSum) {
+            			break;
+            		}
+            		else if(largestSum < tempSum) {
+            			largest = tempStr; 
+            		}
+            	}   
             }
             //System.out.println(s.substring(i,i+k) + "-" + temp);
         }
